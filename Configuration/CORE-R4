@@ -1,0 +1,105 @@
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname R4
+!
+!
+!
+enable password 7 08701E1D
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username corvit password 7 08701E1D
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524MJWI-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name corvit.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 10.10.10.18 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.10.10.45 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ ip address 10.10.10.53 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Serial0/3/0
+ ip address 10.10.10.10 255.255.255.252
+!
+interface Serial0/3/1
+ ip address 10.10.10.5 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ network 10.10.10.8 0.0.0.3 area 0
+ network 10.10.10.4 0.0.0.3 area 0
+ network 10.10.10.52 0.0.0.3 area 0
+ network 10.10.10.44 0.0.0.3 area 0
+ network 10.10.10.16 0.0.0.3 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+banner motd ^Cthis is core router^C
+!
+!
+!
+!
+line con 0
+ password 7 08701E1D
+ login
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+end
